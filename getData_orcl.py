@@ -1,9 +1,44 @@
 import json
 
 loadsFile="./loads.json"
+saltFile="./saltFile"
 connectionsFile="./secretsFile"
 outputSQLITE="./database.db"
 OracleHome="c:\instantclient"
+
+
+################### HELP MENU #################
+
+
+
+################# OPTIONS #####################
+
+
+############ HELPER FUNCTIONS #################
+
+def testFiles(testFile):
+    tfile = exists(testFile)
+    return(tfile)
+
+def yes_or_no(question):
+    while "the answer is invalid":
+        reply = str(input(question+' (y/n): ')).lower().strip()
+        if reply[0] == 'y':
+            return True
+        if reply[0] == 'n':
+            return False
+
+
+############ MAIN FUNCTIONS ###################
+
+
+
+
+
+
+
+
+
 
 ## LOAD Loads File
 # read file
