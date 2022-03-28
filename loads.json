@@ -1,22 +1,22 @@
 {
-	"GETConfig": [
+	"metaGetData": [
         {
 		"Describe": "ORACLE_HOME",
 		"Context": "Get environment ORACLE_HOME",
-		"Label": "ORACLE_HOME must follow a standard for automation purposes",
+		"AdditInfo": "ORACLE_HOME must follow a standard for automation purposes",
 		"Query": "select SYS_CONTEXT ('USERENV','ORACLE_HOME') AS VALUE from dual",
 		"ExpectedValue": "/opt/oracle/product/%/dbhome_%",
 		"FailureMessage": "ORACLE_HOME is not following OMS standards"
 	}, {
 		"Describe": "DB Parameters: Processes",
-		"Label": "DB Size: Small",
+		"AdditInfo": "DB Size: Small",
 		"Context": "oracle_database processes",
 		"Query": "select display_value from v$parameter where display_value='processes'",
 		"ExpectedValue": "300",
 		"FailureMessage": "Not compliant -- processes"
 	}, {
 		"Describe": "OS_VERSION",
-		"Label": "OS Version for standards",
+		"AdditInfo": "OS Version for standards",
 		"Context": "OS_Version for Database Install",
 		"Query": "SELECT dbms_utility.port_string from dual",
 		"ExpectedValue": "AIX/8.1.7",

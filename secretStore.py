@@ -100,6 +100,15 @@ if outputFile is None:
 print('------------------------------------------------------')
 
 #### HELPER FUNCTIONS #################################################################
+#### Function Read Salt File --- used on above functions #####################
+def openSalt(saltFile):
+    with open (saltFile,'r') as Sfile:
+        key = Sfile.read()
+    Sfile.close()
+    #print("BinaryKey: "+str(key))
+    fernet = Fernet(key)
+    return(fernet)
+    
 def testFiles(testFile):
     tfile = exists(testFile)
     return(tfile)
@@ -123,14 +132,7 @@ def genSalt(saltFile):
     f.write(key)
     f.close()
 
-#### Function Read Salt File --- used on above functions #####################
-def openSalt(saltFile):
-    with open (saltFile,'r') as Sfile:
-        key = Sfile.read()
-    Sfile.close()
-    #print("BinaryKey: "+str(key))
-    fernet = Fernet(key)
-    return(fernet)
+
 
 #### Option Crypt Connections File ###########################################
 def enCryptFile(saltFile,inputFile,outputFile):
