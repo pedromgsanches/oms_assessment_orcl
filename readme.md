@@ -37,8 +37,8 @@ pip install pyinstaller, getopt, sys, cryptography, os, json
         "Context":  "Testing Agent Alerts Severity exists", \
         "Name":  "Severity 25 Alert should have a notification", \
         "Database":  null, \
-        "ComputerName":  "SRVASCDBG1.GCA.AD.ROOT", \
-        "Instance":  "SRVASCDBG1.GCA.AD.ROOT\\DBG1", \
+        "ComputerName":  "server.app.ROOT", \
+        "Instance":  "server.app.ROOT\\DB001", \
         "Result":  "Failed", \
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
      }, \
