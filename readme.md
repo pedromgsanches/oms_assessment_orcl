@@ -8,6 +8,14 @@
 - Save a secrets.json copy in a secret and safe place (Keepass file outside the server?)
 - Run getData_orcl.exe to get Oracle data based on loads.json metadata and save it to a local SQLite3 database file
 
+## Writing data to JSON ##
+- Run getData_orcl.exe to write data into JSON files
+
+## Uploading data to Azure Storage ##
+- TBA
+
+## Writing data to XLSX ##
+- TBA
 
 # Dev Notes # 
 **python modules:**
