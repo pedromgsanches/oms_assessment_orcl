@@ -19,14 +19,15 @@ pip install pyinstaller, getopt, sys, cryptography, os, json
 **Build EXE files:**
 ./build.bat
 
-##DONE:##
+
+- [x] DONE
 **Tool encrypt/decrypt JSONs - secretStore.exe
 **Connections encrypted JSON file
 **Loads JSON file
 **Get Oracle Data (getData_orcl.exe)
 **Write data to SQLite3 (database.db)
 
-TO DO:
+- [ ] TO DO:
 **Write JSON
    Output (sample):
     {
