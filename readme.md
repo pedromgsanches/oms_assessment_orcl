@@ -21,28 +21,28 @@ pip install pyinstaller, getopt, sys, cryptography, os, json
 
 
 - [x] DONE
-**Tool encrypt/decrypt JSONs - secretStore.exe**
-**Connections encrypted JSON file**
-**Loads JSON file**
-**Get Oracle Data (getData_orcl.exe)**
-**Write data to SQLite3 (database.db)**
+- **Tool encrypt/decrypt JSONs - secretStore.exe**
+- **Connections encrypted JSON file**
+- **Loads JSON file**
+- **Get Oracle Data (getData_orcl.exe)**
+- **Write data to SQLite3 (database.db)**
 
 - [ ] TO DO:
-**Write JSON**
+- **Write JSON** \
    Output (sample):
-    {
-        "Date":  "02/22/22 14:59:55",
-        "Label":  "Produção",
-        "Describe":  "Agent Alerts",
-        "Context":  "Testing Agent Alerts Severity exists",
-        "Name":  "Severity 25 Alert should have a notification",
-        "Database":  null,
-        "ComputerName":  "SRVASCDBG1.GCA.AD.ROOT",
-        "Instance":  "SRVASCDBG1.GCA.AD.ROOT\\DBG1",
-        "Result":  "Failed",
-        "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false."
-     },
-
-**Load Azure**
-**Write XLSX**
-**Enrich loads.json**
+    { \
+        "Date":  "02/22/22 14:59:55", \
+        "Label":  "Produção", \
+        "Describe":  "Agent Alerts", \
+        "Context":  "Testing Agent Alerts Severity exists", \
+        "Name":  "Severity 25 Alert should have a notification", \
+        "Database":  null, \
+        "ComputerName":  "SRVASCDBG1.GCA.AD.ROOT", \
+        "Instance":  "SRVASCDBG1.GCA.AD.ROOT\\DBG1", \
+        "Result":  "Failed", \
+        "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
+     }, \
+\
+- **Load Azure**
+- **Write XLSX**
+- **Enrich loads.json**
