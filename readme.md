@@ -1,6 +1,10 @@
 # Description:
-I made this customized assessment tool for Oracle Databases for a specific purpose and it may be useful for many similar others. \
-Execute SQL (1 col), write in SQLite3 database, output to JSON, XLSX, upload to Azure storage.
+Customized assessment tool for Oracle Databases. \
+Main purposes:
+- Execute SQL (1 col), 
+- write in SQLite3 database, 
+- output to JSON, XLSX, etc
+- upload to Azure storage.
 
 # Usage: #
 Compiled software and example files in "./dist" folder.
