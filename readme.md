@@ -11,7 +11,7 @@
 
 # Dev Notes # 
 **python modules:**
-pip install pyinstaller, getopt, sys, cryptography, os, json
+pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime, cx_Oracle, cryptography
 
 **V_ENV activator:**
 ./scripts/activate.bat

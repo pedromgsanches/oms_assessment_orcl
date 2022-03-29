@@ -190,7 +190,7 @@ def getOrclData(saltFile,ConnectionsFile):
     sys.exit()
   #print(str(conData['Databases']))
   for db in conData['Databases']:
-    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Connecting: '+db["Host"]+":"+db["Port"]+"/"+db["Database"])
+    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Connecting: ['+ db["Alias"] +"] "+db["Host"]+":"+db["Port"]+"/"+db["Database"])
     connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
     for loadar in GetLoads(loadsFile):    
       cursor = connection.cursor()
@@ -206,8 +206,8 @@ def getOrclData(saltFile,ConnectionsFile):
         (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValue"],isEqual,loadar["FailureMessage"]))
         sqliteCon.commit()
         #print(row)
-    sqliteCur.close()
-    sqliteCon.close()
+  sqliteCur.close()
+  sqliteCon.close()
 
 print("-------------------------------------------------------")
 
