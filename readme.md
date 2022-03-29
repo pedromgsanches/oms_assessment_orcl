@@ -28,7 +28,7 @@ pip install pyinstaller, getopt, sys, cryptography, os, json
 
 TO DO:
 **Write JSON
-``   Output (sample):
+   Output (sample):
     {
         "Date":  "02/22/22 14:59:55",
         "Label":  "Produção",
@@ -40,7 +40,8 @@ TO DO:
         "Instance":  "SRVASCDBG1.GCA.AD.ROOT\\DBG1",
         "Result":  "Failed",
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false."
-     },``
+     },
+
 **Load Azure
 **Write XLSX
 **Enrich loads.json
