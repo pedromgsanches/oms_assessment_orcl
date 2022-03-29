@@ -9,7 +9,7 @@
 - Run getData_orcl.exe to get Oracle data based on loads.json metadata and save it to a local SQLite3 database file
 
 ## Writing data to JSON ##
-- Run getData_orcl.exe to write data into JSON files
+- Run outputJSON.exe to write data into JSON files
 
 ## Uploading data to Azure Storage ##
 - TBA
@@ -34,8 +34,6 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 - **Loads JSON file**
 - **Get Oracle Data (getData_orcl.exe)**
 - **Write data to SQLite3 (database.db)**
-
-- [ ] TO DO:
 - **Write JSON** \
    Output (sample):
     { \
@@ -51,6 +49,8 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
      }, \
 \
+
+- [ ] TO DO:
 - **Load Azure**
 - **Write XLSX**
 - **Enrich loads.json**
