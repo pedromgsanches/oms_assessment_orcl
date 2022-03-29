@@ -53,4 +53,4 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 - [ ] TO DO:
 - **Load Azure**
 - **Write XLSX**
-- **Enrich loads.json**
+- **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
