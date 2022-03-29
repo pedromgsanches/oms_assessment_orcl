@@ -1,4 +1,6 @@
 # Usage: #
+Compiled software and example files in "./dist" folder.
+
 ## Generating Secrets File ##
 - Use secrets.json.template to create a secrets.json file containing connect data
 - Run secretsStore.exe to get help generating a salt key binary file and an encrypted file based on secrets.json file
