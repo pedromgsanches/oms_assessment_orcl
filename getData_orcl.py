@@ -215,30 +215,3 @@ print("-------------------------------------------------------")
 if runGETdata is True:
   print(getOrclData(saltFile,ConnectionsFile))
 
-
-
-
-# print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - Starting..")
-
-####### LOAD Loads File ########################
-# read file
-#with open(loadsFile, 'r') as loads_file:
-#    Loadsdata=loads_file.read()
-#LoadObj = json.loads(Loadsdata)
-
-### HELPER LOAD GET CONFIG #########
-#for details in LoadObj['GETConfig']:
-#  print(str(details['Describe']))
-
-
-
-
-
-
-# decrypt file
-
-
-
-
-
-
