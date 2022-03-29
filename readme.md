@@ -60,7 +60,11 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
      }, \
 \
 
+- [ ] IN PROGRESS:
+- **Load Azure** -- uploadAZURE.py:
+   - ainda nao move para "uploaded"
+   - gerar com argumentos (upload_path, connect_string, container_name)
+
 - [ ] TO DO:
-- **Load Azure**
 - **Write XLSX**
 - **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
