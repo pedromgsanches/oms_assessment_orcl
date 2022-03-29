@@ -2,12 +2,6 @@ import sys, json, cx_Oracle, sqlite3, getopt
 from cryptography.fernet import Fernet
 from datetime import datetime
 
-#loadsFile="./loads.json"
-#saltFile="./saltFile"
-#ConnectionsFile="./secretsFile"
-#oSqlite="./database.db"
-#OracleHome="c:\instantclient"
-
 ################### OPTIONS/HELP MENU ####################
 saltFile = None
 loadsFile = None
