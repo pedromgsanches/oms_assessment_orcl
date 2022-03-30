@@ -61,8 +61,7 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 \
 - **Load Azure** -- uploadAZURE.py:
    - ainda nao move para "uploaded"
-   - gerar com argumentos (upload_path, connect_string, container_name)
-   - how go get conString: https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=environment-variable-windows
+   - validar em storage em uso
 
 
 - [ ] IN PROGRESS:
