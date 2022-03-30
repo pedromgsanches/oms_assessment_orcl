@@ -22,7 +22,7 @@ Compiled software and example files in "./dist" folder.
 - Run outputJSON.exe to write data into JSON files
 
 ## Uploading data to Azure Storage ##
-- TBA
+- Run uploadAZURE.exe to upload data into Azure Blob Storage
 
 ## Writing data to XLSX ##
 - TBA
@@ -59,12 +59,13 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
      }, \
 \
-
-- [ ] IN PROGRESS:
 - **Load Azure** -- uploadAZURE.py:
    - ainda nao move para "uploaded"
    - gerar com argumentos (upload_path, connect_string, container_name)
    - how go get conString: https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=environment-variable-windows
+
+
+- [ ] IN PROGRESS:
 
 - [ ] TO DO:
 - **Write XLSX**

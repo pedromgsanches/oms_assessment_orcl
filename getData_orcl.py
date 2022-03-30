@@ -23,7 +23,8 @@ except getopt.error as err:
     sys.exit(2)
 
 def display_help():
-    print('--- Get ORCL Data help ----------------------------------------------------------------------------------------------------')
+    print('### OMS #################################################################################################################')
+    print('--- Get ORCL Data help --------------------------------------------------------------------------------------------------')
     print(' ')
     print('  -h, --help  Display Help')
     print('  -s, --saltFile= SaltFile Location for connectionsFile Decrypt \n \

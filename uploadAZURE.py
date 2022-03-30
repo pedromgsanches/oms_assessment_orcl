@@ -24,7 +24,8 @@ except getopt.error as err:
     sys.exit(2)
 
 def display_help():
-    print('--- OutputJSON help ----------------------------------------------------------------------------------------------------')
+    print('### OMS #################################################################################################################')
+    print('--- OutputJSON help -----------------------------------------------------------------------------------------------------')
     print(' ')
     print('  -h, --help  Display Help')
     print('  -s, --stringconn= Azure Blob Storage connect string \n')
@@ -33,7 +34,7 @@ def display_help():
     print('  -r, --run  Run this tool.')
     print(' ')
     print('Example Usage: ---------------------------------------------------------------------------------------------------------')    
-    print('- outputJSON.exe -c "bikeStore_dbAssessment" -l "./upload_JSON_bikeStore" -s DefaultEndpointsProtocol=https;AccountName=My_DB_Assessments;AccountKey=bananas123;EndpointSuffix=core.windows.net  ')
+    print('- outputJSON.exe -c "bikeStore_dbAssessment" -l "./upload_JSON_bikeStore" -s "DefaultEndpointsProtocol=https;AccountName=My_DB_Assessments;AccountKey=bananas123;EndpointSuffix=core.windows.net" ')
     print(' ')
     print('------------------------------------------------------------------------------------------------------------------------')
     print('------------------------------------------------------------------------------------------------------------------------')
