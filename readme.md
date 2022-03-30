@@ -65,6 +65,10 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 
 
 - [ ] IN PROGRESS:
+- Melhorias **Load Azure** -- uploadAZURE.py:
+   - ainda nao move para "uploaded"
+   - validar em storage em uso
+
 
 - [ ] TO DO:
 - **Write XLSX**
