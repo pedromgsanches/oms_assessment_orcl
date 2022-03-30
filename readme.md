@@ -59,10 +59,7 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
      }, \
 \
-- **Load Azure** -- uploadAZURE.py:
-   - ainda nao move para "uploaded"
-   - validar em storage em uso
-
+- **Load Azure** -- uploadAZURE.py  
 
 - [ ] IN PROGRESS:
 - Melhorias **Load Azure** -- uploadAZURE.py:
