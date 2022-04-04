@@ -1,0 +1,11 @@
+1- secretStore.py
+	- gera salt file
+	- com base em secrets.json, gera secretsFile
+2- getData_orcl.py
+	- vai buscar os dados em loads.json às bds em secretsfile e escreve em SQLite
+
+3- outputJSON.py
+	- pega nos dados em SQLite e guarda em json na pasta indicada
+
+4- uploadAZURE.py
+	- envia para azure blob container

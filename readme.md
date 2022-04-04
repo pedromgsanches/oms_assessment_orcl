@@ -4,7 +4,7 @@ Main purposes:
 - Execute SQL (1 col), 
 - write in SQLite3 database, 
 - output to JSON, XLSX, etc
-- upload to Azure storage.
+- upload to cloud storage (Azure, etc)
 
 # Usage: #
 Compiled software and example files in "./dist" folder.
