@@ -1061,3 +1061,24 @@ ErrorCode:ContainerAlreadyExists
 Content: <?xml version="1.0" encoding="utf-8"?><Error><Code>ContainerAlreadyExists</Code><Message>The specified container already exists.
 RequestId:17f307ec-c01e-0001-4705-49370c000000
 Time:2022-04-05T15:52:13.9168709Z</Message></Error>
+# ------------------------------------------------------------------------------------------------------------------
+# -- <_io.BufferedReader name='.\\OMS-ORCL-ASSESSMENT\\OramixManagedServices\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220405_1558.json'>
+The specified blob already exists.
+RequestId:f27375f4-001e-0071-0e07-4944c8000000
+Time:2022-04-05T16:09:25.9391015Z
+ErrorCode:BlobAlreadyExists
+Content: <?xml version="1.0" encoding="utf-8"?><Error><Code>BlobAlreadyExists</Code><Message>The specified blob already exists.
+RequestId:f27375f4-001e-0071-0e07-4944c8000000
+Time:2022-04-05T16:09:25.9391015Z</Message></Error>
+# ------------------------------------------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------------
+# -- <_io.BufferedReader name='.\\OMS-ORCL-ASSESSMENT\\OramixManagedServices\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220405_1558.json'>
+The specified blob already exists.
+RequestId:f2737678-001e-0071-0907-4944c8000000
+Time:2022-04-05T16:09:26.2329325Z
+ErrorCode:BlobAlreadyExists
+Content: <?xml version="1.0" encoding="utf-8"?><Error><Code>BlobAlreadyExists</Code><Message>The specified blob already exists.
+RequestId:f2737678-001e-0071-0907-4944c8000000
+Time:2022-04-05T16:09:26.2329325Z</Message></Error>
+# ------------------------------------------------------------------------------------------------------------------

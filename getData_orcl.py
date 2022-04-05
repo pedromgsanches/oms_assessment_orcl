@@ -1,4 +1,4 @@
-import sys, json, cx_Oracle, sqlite3, getopt
+import sys, json, cx_Oracle, sqlite3, getopt, os
 from cryptography.fernet import Fernet
 from datetime import datetime
 
@@ -13,7 +13,7 @@ OracleHome = None
 full_cmd_arguments = sys.argv
 argument_list = full_cmd_arguments[1:]
 
-short_options = "ho:s:l:c:d,o,r"
+short_options = "ho:s:l:c:d:o,r"
 long_options = ["help", "saltFile=", "loadsFile=", "connectionsFile=" , "database=", "OracleHome=", "run"]
 try:
     arguments, values = getopt.getopt(argument_list, short_options, long_options)
@@ -76,6 +76,7 @@ for current_argument, current_value in arguments:
 
     elif current_argument in ("-o", "--OracleHome"):
         print (("Custom client ORACLE_HOME= (%s)") % (current_value))
+        os.environ["LD_LIBRARY_PATH"] = str(current_value)
         OracleHome=current_value
 
     elif current_argument in ("-r", "--run"):

@@ -1,4 +1,3 @@
-from importlib.resources import Resource
 import os, uuid, sys, getopt, shutil
 from datetime import datetime
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
