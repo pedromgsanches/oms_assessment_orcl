@@ -7,14 +7,14 @@ local_path = None
 container_name = None 
 exceptionsFile = "./Exceptions.log"
 exceptfile = open(exceptionsFile, 'a')
-exceptionCount=0
+#exceptionCount=0
 runUploadData=False
 
 ################### OPTIONS/HELP MENU ####################
 full_cmd_arguments = sys.argv
 argument_list = full_cmd_arguments[1:]
 
-short_options = "ho:d:o,r"
+short_options = "ho:s:c:l:ro"
 long_options = ["help", "database=", "outputDest=", "run"]
 try:
     arguments, values = getopt.getopt(argument_list, short_options, long_options)
@@ -82,6 +82,8 @@ if local_path is None:
 
 ### MAIN ACTION ######################################################
 def uploadAzureData():
+    exceptionCount=0
+
     print('----------------- uploadAZURE -----------------')
     try:
         os.mkdir(uploaded_path)
@@ -119,7 +121,6 @@ def uploadAzureData():
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - '+str(exceptionCount)+' exception(s) found and described in '+exceptionsFile)
     exceptfile.close()
     print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Done.')
-
 
 
 if runUploadData is True:

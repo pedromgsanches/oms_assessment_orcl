@@ -1,0 +1,51 @@
+
+----------------------------------------------------------------------------------------------------------------
+The specified container already exists.
+RequestId:af6b8a29-d01e-0015-66da-48f468000000
+Time:2022-04-05T10:45:08.1846450Z
+ErrorCode:ContainerAlreadyExists
+Content: <?xml version="1.0" encoding="utf-8"?><Error><Code>ContainerAlreadyExists</Code><Message>The specified container already exists.
+RequestId:af6b8a29-d01e-0015-66da-48f468000000
+Time:2022-04-05T10:45:08.1846450Z</Message></Error>
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1745.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1745.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1746.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1746.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1747.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1747.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1813.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1813.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1815.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1815.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1817.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1817.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1819.json' -> '.\\output_JSON\\/uploaded/oms_assessment_database_192.168.0.32_1521_ORCLCDB_20220329_1819.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1745.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1745.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1746.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1746.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1747.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1747.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1813.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1813.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1815.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1815.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1817.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1817.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1819.json' -> '.\\output_JSON\\/uploaded/oms_assessment_dev02_192.168.0.32_1521_ORCLCDB_20220329_1819.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1745.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1745.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1746.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1746.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1747.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1747.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1813.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1813.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1815.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1815.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1817.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1817.json'
+------------------------------------------------------------------------------------------------------------------
+[WinError 32] The process cannot access the file because it is being used by another process: '.\\output_JSON\\oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1819.json' -> '.\\output_JSON\\/uploaded/oms_assessment_test02_192.168.0.32_1521_ORCLCDB_20220329_1819.json'
