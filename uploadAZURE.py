@@ -1,13 +1,15 @@
-import os, uuid, sys, getopt
+from importlib.resources import Resource
+import os, uuid, sys, getopt, shutil
 from datetime import datetime
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+from pathlib import Path
 
 connect_str = None
 local_path = None 
 container_name = None 
 exceptionsFile = "./Exceptions.log"
 exceptfile = open(exceptionsFile, 'a')
-#exceptionCount=0
+exceptionCount=0
 runUploadData=False
 
 ################### OPTIONS/HELP MENU ####################
@@ -41,6 +43,7 @@ def display_help():
     sys.exit()
 
 ##################################################### DEFINE VARS ###########################################################################################
+print('----------------- uploadAZURE --------------------------------------------------------------------------------------------')
 
 # No Arguments? Return HELP!
 try:
@@ -52,7 +55,8 @@ for current_argument, current_value in arguments:
     if current_argument in ("-h", "--help"):
         display_help()
     elif current_argument in ("-s", "--strinconn"):
-        print (("Azure Storage connect string= (%s)") % (current_value))
+        #print (("Azure Storage connect string= (%s)") % (current_value))
+        print("Azure blog storage connect string= (is SET)")
         connect_str=current_value
     elif current_argument in ("-c", "--container"):
         print (("Azure Storage Container= (%s)") % (current_value))
@@ -60,7 +64,7 @@ for current_argument, current_value in arguments:
     elif current_argument in ("-l", "--localpath"):
         print (("Data local path= (%s)") % (current_value))
         local_path = current_value
-        uploaded_path = local_path+"/uploaded/"
+        uploaded_path = ".\\uploaded\\"
 
     elif current_argument in ("-r", "--run"):
         print('Executing... ')
@@ -80,42 +84,62 @@ if local_path is None:
     sys.exit()
 
 
+
+
 ### MAIN ACTION ######################################################
 def uploadAzureData():
     exceptionCount=0
 
-    print('----------------- uploadAZURE -----------------')
     try:
         os.mkdir(uploaded_path)
     except Exception as er:
         None
 
     try:
-        print("Azure Blob Storage Driver v" + __version__ )
-        print(" ")
+        print("Connecting using Azure Blob Storage Driver v" + __version__ +"...")
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
-        container_client = blob_service_client.create_container(container_name)
     except Exception as e:
         exceptionCount=exceptionCount+1
-        exceptfile.write('\n----------------------------------------------------------------------------------------------------------------\n')
+        exceptfile.write('\n----------------------------------------------------------------------------------------------------------------')
         exceptfile.write(str(e))
-    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Uploading to Azure Storage as Blob:')
+        print(e)
+    try:
+        container_client = blob_service_client.create_container(container_name)
+    except:
+        print('Container "'+ container_name + '" already exists.\n')
 
-    for filename in os.scandir(local_path):
-        if filename.is_file():
-            upload_file_path = filename.path
-            local_file_name = filename.name
-            blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
-            with open(upload_file_path, "rb") as data:
+
+
+    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Start uploading...')
+
+#    for filename in os.scandir(local_path):
+    for root,dirs,files in os.walk(local_path):
+        for file in files:
+            filename=(os.path.join(root, file))
+            blob_client = blob_service_client.get_blob_client(container=container_name, blob=filename)
+            with open(filename, "rb") as data:
                 try:
+                    upload_name = data
                     blob_client.upload_blob(data)
-                    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+ local_file_name)
-                   ## devia mover, mas ainda nao o está a fazer
-                    os.rename(filename.path, str(uploaded_path+filename.name))
+                    print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - Sent: "+ str(data))
+                    Fsent=0
                 except Exception as e:
                     exceptionCount=exceptionCount+1
-                    exceptfile.write('\n------------------------------------------------------------------------------------------------------------------\n')
+                    exceptfile.write('\n# ------------------------------------------------------------------------------------------------------------------')
+                    exceptfile.write('\n# -- '+ str(data)+'\n')
                     exceptfile.write(str(e))
+                    exceptfile.write('\n# ------------------------------------------------------------------------------------------------------------------')
+                    exceptfile.write('\n')
+                    Fsent=1
+            try:        
+                if Fsent == 0:
+                    uploadedFname = uploaded_path+filename[filename.startswith('.') and 1:]
+                    os.makedirs(os.path.dirname(uploadedFname), exist_ok=True)
+                    os.replace(filename, uploadedFname)
+            except Exception as e:
+                print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Error moving to ./uploaded directory')
+                print('--------- \n'+str(e))
+
 
     if exceptionCount>0:
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - '+str(exceptionCount)+' exception(s) found and described in '+exceptionsFile)

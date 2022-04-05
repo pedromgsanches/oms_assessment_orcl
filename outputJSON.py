@@ -78,14 +78,14 @@ def outputJSON():
     sqliteCurList = sqliteCon.cursor()
     ## Get Servers Data from SQLLite
     try:
-        sqliteCurList.execute("select distinct alias,host,port,database,org,context from raw_data")
+        sqliteCurList.execute("select distinct alias,host,port,database,org from raw_data")
     except:
         print("SQLite error: "+str(e))
     print("# outputJSON Starting... ")
     Lmain=[]
     Lconn=[]
     for rowD in sqliteCurList.fetchall():
-        Lconn=[ rowD[0],rowD[1],rowD[2],rowD[3],rowD[4],rowD[5] ]
+        Lconn=[ rowD[0],rowD[1],rowD[2],rowD[3],rowD[4] ]
         Lmain.append(Lconn)
         #print(Lmain)
     sqliteCurList.close()
@@ -97,14 +97,10 @@ def outputJSON():
         if os.path.isdir(Folder) is False:
             os.mkdir(Folder)
         
-        if os.path.isdir(Folder+re.sub(r'[^\w]', '_', value[5])) is False:
-            os.mkdir(Folder+re.sub(r'[^\w]', '_', value[5]))
+        if os.path.isdir(Folder+re.sub(r'[^\w]', '_', value[4])) is False:
+            os.mkdir(Folder+re.sub(r'[^\w]', '_', value[4]))
 
-        if os.path.isdir(Folder+re.sub(r'[^\w]', '_', value[5]) + '/' + re.sub(r'[^\w]', '_', value[4])) is False:
-            os.mkdir(Folder+re.sub(r'[^\w]', '_', value[5]) + '/' + re.sub(r'[^\w]', '_', value[4]))        
-
-
-        jsonOutput=str(Folder+re.sub(r'[^\w]', '_', value[5]) + '/' + re.sub(r'[^\w]', '_', value[4]) + '/' +re.sub(r'[^\w]', '_', value[0])+"_"+value[1]+"_"+value[2]+"_"+value[3]+"_"+dateNOW+".json")
+        jsonOutput=str(Folder + re.sub(r'[^\w]', '_', value[4]) + '/' +re.sub(r'[^\w]', '_', value[0])+"_"+value[1]+"_"+value[2]+"_"+value[3]+"_"+dateNOW+".json")
         outFile=open(jsonOutput, "a")
 
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - Writing: "+jsonOutput)
