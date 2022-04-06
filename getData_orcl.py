@@ -76,8 +76,10 @@ for current_argument, current_value in arguments:
 
     elif current_argument in ("-o", "--OracleHome"):
         print (("Custom client ORACLE_HOME= (%s)") % (current_value))
-        os.environ["LD_LIBRARY_PATH"] = str(current_value)
         OracleHome=current_value
+        os.environ["LD_LIBRARY_PATH"] = OracleHome
+        print('Using ORACLE_HOME='+OracleHome)
+        print(os.environ["LD_LIBRARY_PATH"])
 
     elif current_argument in ("-r", "--run"):
         print('Executing... ')
@@ -99,8 +101,9 @@ if oSqlite is None:
     print('Using default SQLite3 Database='+oSqlite)
 if OracleHome is None:
     OracleHome="c:\instantclient"
+    os.environ["LD_LIBRARY_PATH"] = OracleHome
     print('Using default client ORACLE_HOME='+OracleHome)
-
+    print(os.environ["LD_LIBRARY_PATH"])
 
 ############ HELPER FUNCTIONS #################
 #### Function Read Salt File --- used on above functions 
