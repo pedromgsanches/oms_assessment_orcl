@@ -11,18 +11,23 @@ Compiled software and example files in "./dist" folder.
 
 ## Generating Secrets File ##
 - Use secrets.json.template to create a secrets.json file containing connect data
-- Run secretsStore.exe to get help generating a salt key binary file and an encrypted file based on secrets.json file
+- Run secretsStore exec file to get help generating a salt key binary file and an encrypted file based on secrets.json file
+**- If needed, it's possible to create one secrets-file per organization or context. ex: "secrets-cocacola-prd, secrets-cocacola-dev, secrets-vitoriafc-dev"**
 
 ## Getting data ##
 - Use loads.json.template to create a loads.json file containing Queries metadata
 - Save a secrets.json copy in a secret and safe place (Keepass file outside the server?)
-- Run getData_orcl.exe to get Oracle data based on loads.json metadata and save it to a local SQLite3 database file
+- Run getData_orcl exec file to get Oracle data based on loads.json metadata and save it to a local SQLite3 database file
+**- It's recommended to create one loads file per load context. Ex: "SVC-ORCL-BCKP-ASSESSMENT.json"**
 
 ## Writing data to JSON ##
-- Run outputJSON.exe to write data into JSON files
+- Run outputJSON exec file to write data into JSON files
+**- It's recommended to output data to a folder with the same name as loads.json file. Ex: For SVC-ORCL-ASSESSMENT.json, use ./SVC-ORCL-ASSESSMENT/"
 
-## Uploading data to Azure Storage ##
-- Run uploadAZURE.exe to upload data into Azure Blob Storage
+## Uploading data to Azure Storage ## -- not working in Linux, yet.
+- Run uploadAZURE exec file to upload data into Azure Blob Storage
+**- Source folder, with the same name as loads.json file, Ex: "./SVC-ORCL-BCKP-ASSESSMENT/", will be created in Azure Blob Container**
+
 
 ## Writing data to XLSX ##
 - TBA
@@ -32,7 +37,10 @@ Compiled software and example files in "./dist" folder.
 pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime, cx_Oracle, cryptography
 
 **V_ENV activator:**
-./scripts/activate.bat
+- Windows: ./scripts/activate.bat
+- Gnu/Linux: 
+   - . ./scripts/activate
+   - export LD_LIBRARY_PATH=<ORACLE_CLIENT_HOME>
 
 **Build EXE files:**
 ./build.bat
@@ -63,8 +71,9 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 
 - [ ] IN PROGRESS:
 - Melhorias **Load Azure** -- uploadAZURE.py:
-   - ainda nao move para "uploaded"
-   - validar em storage em uso
+   - [x] ainda nao move para "uploaded"
+   - [x] validar em storage em uso
+   - [ ] correr em Gnu/Linux
 
 
 - [ ] TO DO:
