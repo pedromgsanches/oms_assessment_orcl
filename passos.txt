@@ -1,11 +1,14 @@
 1- secretStore.py
 	- gera salt file
-	- com base em secrets.json, gera secretsFile
+	- com base em secrets.json, gera secretsFile (Ex: secrets-coca-cola)
 2- getData_orcl.py
 	- vai buscar os dados em loads.json às bds em secretsfile e escreve em SQLite
+		- recomendado usar loads file específicos por contexto, Ex: "SVC-ORCL-BCKP-ASSESSMENT.json"
 
 3- outputJSON.py
 	- pega nos dados em SQLite e guarda em json na pasta indicada
+		- recomendado nome de pasta coerente com o loads file. Ex: "./SVC-ORCL-BCKP-ASSESSMENT/"
 
 4- uploadAZURE.py
 	- envia para azure blob container
+		- A pasta de origem, Ex: "./SVC-ORCL-BCKP-ASSESSMENT/", será criada no Blob Container Azure
