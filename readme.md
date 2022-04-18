@@ -17,6 +17,11 @@ Compiled software and example files in "./dist" folder.
 ## Getting data ##
 - Use queries.json.template to create a queries.json file containing Queries metadata
 - Save a secrets.json copy in a secret and safe place (Keepass file outside the server?)
+- Compare Operator in queries.json can be use as following:
+	- equal (compare two variables)
+	- less (compare two numbers)
+	- greater (compare two numbers)
+	- or (check if string exists. example: Use "Linux|AIX" to check if operating system is "Linux" or "AIX"
 - Run getData_orcl exec file to get Oracle data based on queries.json metadata and save it to a local SQLite3 database file
 **- It's recommended to create one queries file per load context. Ex: "SVC-ORCL-BCKP-ASSESSMENT.json"**
 
@@ -73,13 +78,11 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
    - [x] validar em storage em uso
    - [x] correr em Gnu/Linux
 
+- [x] **funçao operator + operator no json:**
+      - [x] json query: compareOperator
+      - [x] greater, less, equal, or
+
 - [ ] IN PROGRESS:
-   - [ ] funçao operator + operator no json:
-      - [ ] json query: compareOperator
-      - [ ] greater
-      - [ ] lower
-      - [ ] equal ou: expectedValue: [=, 10] ou [>, 10]
-      - [ ] criar funçoes para greater,lower,equal
 
 - [ ] TO DO:
 - **Write XLSX**
