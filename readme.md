@@ -1,4 +1,4 @@
-# Description:
+# Description
 Customized assessment tool for Oracle Databases. \
 Main purposes:
 - Execute SQL (1 col), 
@@ -6,7 +6,7 @@ Main purposes:
 - output to JSON, XLSX, etc
 - upload to cloud storage (Azure, etc)
 
-# Usage: #
+# Usage #
 Compiled software and example files in "./dist" folder.
 
 ## Generating Secrets File ##
