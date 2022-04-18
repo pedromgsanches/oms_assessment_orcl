@@ -17,7 +17,7 @@ Compiled software and example files in "./dist" folder.
 ## Getting data ##
 - Use queries.json.template to create a queries.json file containing Queries metadata
 - Save a secrets.json copy in a secret and safe place (Keepass file outside the server?)
-- Compare Operator in queries.json can be use as following:
+- ExpectedValOperator in queries.json can be use as following:
 	- equal (compare two variables)
 	- less (compare two numbers)
 	- greater (compare two numbers)
