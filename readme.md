@@ -47,7 +47,7 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
    - . ./scripts/activate
    - export LD_LIBRARY_PATH=<ORACLE_CLIENT_HOME>
 
-**Build EXE files:**
+###Build EXE files:###
 ./build.bat
 
 
