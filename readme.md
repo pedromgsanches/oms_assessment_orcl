@@ -15,18 +15,18 @@ Compiled software and example files in "./dist" folder.
 **- If needed, it's possible to create one secrets-file per organization or context. ex: "secrets-cocacola-prd, secrets-cocacola-dev, secrets-vitoriafc-dev"**
 
 ## Getting data ##
-- Use loads.json.template to create a loads.json file containing Queries metadata
+- Use queries.json.template to create a queries.json file containing Queries metadata
 - Save a secrets.json copy in a secret and safe place (Keepass file outside the server?)
-- Run getData_orcl exec file to get Oracle data based on loads.json metadata and save it to a local SQLite3 database file
-**- It's recommended to create one loads file per load context. Ex: "SVC-ORCL-BCKP-ASSESSMENT.json"**
+- Run getData_orcl exec file to get Oracle data based on queries.json metadata and save it to a local SQLite3 database file
+**- It's recommended to create one queries file per load context. Ex: "SVC-ORCL-BCKP-ASSESSMENT.json"**
 
 ## Writing data to JSON ##
 - Run outputJSON exec file to write data into JSON files
-**- It's recommended to output data to a folder with the same name as loads.json file. Ex: For SVC-ORCL-ASSESSMENT.json, use ./SVC-ORCL-ASSESSMENT/"
+**- It's recommended to output data to a folder with the same name as queries.json file. Ex: For SVC-ORCL-ASSESSMENT.json, use ./SVC-ORCL-ASSESSMENT/"
 
 ## Uploading data to Azure Storage ## -- not working in Linux, yet.
 - Run uploadAZURE exec file to upload data into Azure Blob Storage
-**- Source folder, with the same name as loads.json file, Ex: "./SVC-ORCL-BCKP-ASSESSMENT/", will be created in Azure Blob Container**
+**- Source folder, with the same name as queries.json file, Ex: "./SVC-ORCL-BCKP-ASSESSMENT/", will be created in Azure Blob Container**
 
 
 ## Writing data to XLSX ##
