@@ -21,7 +21,7 @@ missing module named pyimod03_importers - imported by /home/vagrant/Code/oms_ass
 missing module named _dummy_threading - imported by dummy_threading (optional)
 missing module named _winapi - imported by subprocess (conditional)
 missing module named msvcrt - imported by subprocess (conditional), getpass (optional)
-missing module named nt - imported by os (conditional, optional), shutil (conditional), ntpath (conditional, optional)
+missing module named nt - imported by os (conditional, optional), ntpath (conditional, optional), shutil (conditional)
 missing module named _sha512 - imported by hashlib (delayed, conditional, optional)
 missing module named _sha256 - imported by hashlib (delayed, conditional, optional)
 missing module named _md5 - imported by hashlib (delayed, conditional, optional)

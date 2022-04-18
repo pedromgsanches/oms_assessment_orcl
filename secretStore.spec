@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['secretStore.py'],
-             pathex=[],
+             pathex=['libsite-packages'],
              binaries=[],
              datas=[],
              hiddenimports=[],

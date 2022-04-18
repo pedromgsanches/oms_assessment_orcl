@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['uploadAZURE.py'],
-             pathex=[],
+             pathex=['libsite-packages'],
              binaries=[],
              datas=[],
              hiddenimports=[],
