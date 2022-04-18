@@ -1,4 +1,4 @@
-import getopt, sys
+import getopt, sys, os
 from multiprocessing.pool import RUN
 from operator import truediv
 from cryptography.fernet import Fernet
@@ -31,24 +31,24 @@ def display_help():
     print(' ')
     print('  -h, --help  Display Help')
     print('  -s, --saltFile= Location \n \
-            Default: ./saltFile')
+            Default: ./.saltFile')
     print('  -i, --input= file in JSON format. Please follow secrets.json.example \n \
             Default file: secrets.json')
     print('  -o, --output= file in Binary format. \n \
-            Default file: secretsFile')
+            Default file: secretsFile.conn')
     print('  -p, --print secrets in output file. \n \
-            Default file: secretsFile')
+            Default file: secretsFile.conn')
     print('  -r, --run  Run secretsFile generation with default options.')
     print('  -g, --genSalt  Generate SaltFile.')
     print(' ')
     print('Example Usage: ---------------------------------------------------------------------------------------------------------')    
-    print('- generate Salt File:      ./secretStore.exe -g -s "saltFile" ')
-    print('- create secrets file:     ./secretStore.exe -r -s "saltFile" -i "secrets.json" -o "secretsFile" ')
-    print('- print secrets:           ./secretStore.exe -p -s "saltFile" -o "secretsFile" ')
+    print('- generate Salt File:      ./secretStore -g -s ".saltFile" ')
+    print('- create secrets file:     ./secretStore -r -s ".saltFile" -i "my_company_secrets.json" -o "my_company_secrets.conn" ')
+    print('- print secrets:           ./secretStore -p -s ".saltFile" -o "secretsFile.conn" ')
     print(' ')
     print('------------------------------------------------------------------------------------------------------------------------')
     print('--- ATENTION! ----------------------------------------------------------------------------------------------------------')
-    print('PLEASE SAVE SECRETS (secrets.json) IN A SAFE PLACE AFTER CREATING SECRETS FILE (secretsFile) , IT HAVE PASSWORDS IN IT.')
+    print('PLEASE SAVE SECRETS (secrets.json) IN A SAFE PLACE AFTER CREATING SECRETS FILE (secretsFile.conn) , IT HAVE PASSWORDS IN IT.')
     print('------------------------------------------------------------------------------------------------------------------------')
     sys.exit()
 
@@ -89,13 +89,13 @@ for current_argument, current_value in arguments:
         generateSalt=True
 
 if saltFile is None:
-    saltFile="./saltFile"
+    saltFile="./.saltFile"
     print('Using default SaltFile='+saltFile)
 if inputFile is None:
     inputFile="./secrets.json"
     print('Using default Input='+inputFile)
 if outputFile is None:
-    outputFile="./secretsFile"
+    outputFile="./secretsFile.conn"
     print('Using default Output='+outputFile)
 
 print('------------------------------------------------------')
@@ -132,7 +132,7 @@ def genSalt(saltFile):
     f = open(saltFile, "wb")
     f.write(key)
     f.close()
-
+    os.chmod(saltFile, 400)
 
 
 #### Option Crypt Connections File ###########################################
@@ -146,6 +146,7 @@ def enCryptFile(saltFile,inputFile,outputFile):
     c = open(outputFile,'wb')
     c.write(encMessage)
     c.close()
+    os.chmod(outputFile, 400)
     print('Created secrets file: '+outputFile)
 
 #### Option Decrypt Connections File #########################################

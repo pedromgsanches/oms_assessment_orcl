@@ -13,8 +13,8 @@ OracleHome = None
 full_cmd_arguments = sys.argv
 argument_list = full_cmd_arguments[1:]
 
-short_options = "ho:s:l:c:d:o,r"
-long_options = ["help", "saltFile=", "loadsFile=", "connectionsFile=" , "database=", "OracleHome=", "run"]
+short_options = "ho:s:q:c:d:o,r"
+long_options = ["help", "saltFile=", "queries=", "connectionsFile=" , "database=", "OracleHome=", "run"]
 try:
     arguments, values = getopt.getopt(argument_list, short_options, long_options)
 except getopt.error as err:
@@ -29,18 +29,18 @@ def display_help():
     print('  -h, --help  Display Help')
     print('  -s, --saltFile= SaltFile Location for connectionsFile Decrypt \n \
             Default: ./saltFile')
-    print('  -c, --connectionsFile= secrets connections file created under secretStore.exe file. \n \
-            Default file: secretsFile')
-    print('  -l, --loadsFile= for execution info metadata. Please follow the example in loads.json.example \n \
-            Default file: ./loads.json')
+    print('  -c, --connectionsFile= secrets connections file created under secretStore file. \n \
+            Default file: secretsFile.conn')
+    print('  -q, --queries= for execution info metadata. Please follow the example in queries.json.example \n \
+            Default file: ./queries.json')
     print('  -d, --database= auxiliary SQLite3 database. \n \
             Default file: ./database.db')
     print('  -o, --OracleHome= ORACLE_HOME location. \n \
-            Default location: ORACLE_HOME=c:\instantclient')
+            Default location: LD_LIBRARY_PATH=c:\instantclient')
     print('  -r, --run  Run this tool.')
     print(' ')
     print('Example Usage: ---------------------------------------------------------------------------------------------------------')    
-    print('- getData_orcl.exe -s ./saltFile -c secretsFile_dev -l loads_dev.json -o c:\oracle\home\ -r ')
+    print('- getData_orcl -s ./saltFile -c my_company_secrets.conn -l my_assessment_queries.json -o c:\oracle\home\ -r ')
     print(' ')
     print('------------------------------------------------------------------------------------------------------------------------')
     print('------------------------------------------------------------------------------------------------------------------------')
@@ -66,8 +66,8 @@ for current_argument, current_value in arguments:
         print (("Custom Connections File= (%s)") % (current_value))
         ConnectionsFile=current_value
 
-    elif current_argument in ("-l", "--loadsFile"):
-        print (("Custom Loads File= (%s)") % (current_value))
+    elif current_argument in ("-q", "--queries"):
+        print (("Custom Queries File= (%s)") % (current_value))
         loadsFile=current_value
 
     elif current_argument in ("-d", "--database"):
@@ -94,8 +94,8 @@ if ConnectionsFile is None:
     ConnectionsFile="./secretsFile"
     print('Using default Connections File='+ConnectionsFile)
 if loadsFile is None:
-    loadsFile="./loads.json"
-    print('Using default LoadsFile='+loadsFile)
+    loadsFile="./queries.json"
+    print('Using default Queries File='+loadsFile)
 if oSqlite is None:
     oSqlite="./database.db"
     print('Using default SQLite3 Database='+oSqlite)
@@ -143,7 +143,7 @@ def GetLoads(loadsFile):
     try:
       LoData=json.loads(LoFile.read())
     except Exception as e:
-      print('ERR: Validate your Loads JSON file: '+str(e))
+      print('ERR: Validate your Queries JSON file: '+str(e))
       sys.exit()
     return(LoData['metaGetData'])
 

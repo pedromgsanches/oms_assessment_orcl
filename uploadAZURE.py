@@ -35,7 +35,7 @@ def display_help():
     print('  -r, --run  Run this tool.')
     print(' ')
     print('Example Usage: ---------------------------------------------------------------------------------------------------------')    
-    print('- outputJSON.exe -c "bikeStore_dbAssessment" -l "./upload_JSON_bikeStore" -s "DefaultEndpointsProtocol=https;AccountName=My_DB_Assessments;AccountKey=bananas123;EndpointSuffix=core.windows.net" ')
+    print('- outputJSON -c "bikeStore_dbAssessment" -l "./upload_JSON_bikeStore" -s "DefaultEndpointsProtocol=https;AccountName=My_DB_Assessments;AccountKey=bananas123;EndpointSuffix=core.windows.net" ')
     print(' ')
     print('------------------------------------------------------------------------------------------------------------------------')
     print('------------------------------------------------------------------------------------------------------------------------')
