@@ -50,6 +50,8 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 **Build EXE files:**
 ./build.bat
 
+
+**Changes**
 - [ ] IN PROGRESS:
 
 - [ ] TO DO:
