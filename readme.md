@@ -68,13 +68,18 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
      }, \
 \
 - **Load Azure** -- uploadAZURE.py  
-
-- [ ] IN PROGRESS:
 - Melhorias **Load Azure** -- uploadAZURE.py:
    - [x] ainda nao move para "uploaded"
    - [x] validar em storage em uso
-   - [ ] correr em Gnu/Linux
+   - [x] correr em Gnu/Linux
 
+- [ ] IN PROGRESS:
+   - [ ] funçao operator + operator no json:
+      - [ ] json query: compareOperator
+      - [ ] greater
+      - [ ] lower
+      - [ ] equal ou: expectedValue: [=, 10] ou [>, 10]
+      - [ ] criar funçoes para greater,lower,equal
 
 - [ ] TO DO:
 - **Write XLSX**
