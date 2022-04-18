@@ -50,6 +50,11 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 **Build EXE files:**
 ./build.bat
 
+- [ ] IN PROGRESS:
+
+- [ ] TO DO:
+- **Write XLSX**
+- **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
 
 - [x] DONE
 - **Tool encrypt/decrypt JSONs - secretStore.exe**
@@ -81,9 +86,3 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 - [x] **funçao operator + operator no json:**
       - [x] json query: compareOperator
       - [x] greater, less, equal, or
-
-- [ ] IN PROGRESS:
-
-- [ ] TO DO:
-- **Write XLSX**
-- **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
