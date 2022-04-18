@@ -106,7 +106,7 @@ def outputJSON():
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - Writing: "+jsonOutput)
         try:
             sqliteCur.execute("select timestamp, alias, org, stage, label, host, port, database, \
-                describe, additinfo, context, query_result, query_expected, equal, failure_msg \
+                describe, additinfo, context, query_result, compare_op, query_expected, equal, failure_msg \
                 from raw_data where alias = ? and host = ? and port = ? and database = ?", (value[0], value[1], value[2], value[3]))
         except Exception as e:
             print("SQLite error: "+str(e))
@@ -128,9 +128,10 @@ def outputJSON():
                 "AdditionalInfo": rowg[9],
                 "Context": rowg[10],
                 "QueryResult": rowg[11],
-                "QueryExpected": rowg[12],
-                "IsEqual": rowg[13],
-                "FailureMsg": rowg[14]
+                "CompareOperator": rowg[12],
+                "QueryExpected": rowg[13],
+                "IsCompliant": rowg[14],
+                "FailureMsg": rowg[15]
                 }
             jsonObject = json.dumps(itemsDict, indent = 2) 
             if cnt>0:

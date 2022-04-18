@@ -1,4 +1,5 @@
-import sys, json, cx_Oracle, sqlite3, getopt, os
+from ast import operator
+import sys, json, cx_Oracle, sqlite3, getopt, os, re
 from cryptography.fernet import Fernet
 from datetime import datetime
 
@@ -40,7 +41,7 @@ def display_help():
     print('  -r, --run  Run this tool.')
     print(' ')
     print('Example Usage: ---------------------------------------------------------------------------------------------------------')    
-    print('- getData_orcl -s ./saltFile -c my_company_secrets.conn -l my_assessment_queries.json -o c:\oracle\home\ -r ')
+    print('- getData_orcl -s ./saltFile -c my_company_secrets.conn -q my_assessment_queries.json -o c:\oracle\home\ -r ')
     print(' ')
     print('------------------------------------------------------------------------------------------------------------------------')
     print('------------------------------------------------------------------------------------------------------------------------')
@@ -137,6 +138,25 @@ def yes_or_no(question):
         if reply[0] == 'n':
             return False
 
+#### COMPARE VALUES ###########################
+def compareValues(GotValue, ExpecValue, inputOp):
+  outputValue=False
+
+  if inputOp == 'equal':
+      if GotValue == ExpecValue:
+        outputValue = True
+  if inputOp == 'greater':
+      if GotValue > ExpecValue:
+        outputValue = True
+  if inputOp == 'less':
+      if GotValue < ExpecValue:
+        outputValue = True
+  if inputOp == 'or':
+      match = re.findall(re.escape(GotValue), ExpecValue)
+      if match:
+        outputValue = True
+  return(outputValue)
+
 #### GET LOADS ################################
 def GetLoads(loadsFile):
   with open(loadsFile,'r') as LoFile:
@@ -161,7 +181,7 @@ def InitSQLite3(SQLITE):
   except Exception as e: 
     print('SQLITEerr: '+str(e))
   try:
-    sqliteCur.execute('''CREATE TABLE raw_data (timestamp, alias, org, stage, label, host, port, database, describe, additinfo, context, query_result,query_expected,equal,failure_msg)''')
+    sqliteCur.execute('''CREATE TABLE raw_data (timestamp, alias, org, stage, label, host, port, database, describe, additinfo, context, query_result,compare_op,query_expected,equal,failure_msg)''')
     sqliteCon.commit()
   except Exception as e: 
     print('SQLITEerr: '+str(e))
@@ -195,14 +215,15 @@ def getOrclData(saltFile,ConnectionsFile):
       cursor = connection.cursor()
       cursor.execute(loadar["Query"])
       for LQuery in cursor:
-        if str(LQuery[0]) == str(loadar["ExpectedValue"]):
+        if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
+#        if str(LQuery[0]) == str(loadar["ExpectedValue"]):
           isEqual = 'OK'
         else:
           isEqual = 'NOT_OK'
         
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
-        sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-        (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValue"],isEqual,loadar["FailureMessage"]))
+        sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+        (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"]))
         sqliteCon.commit()
         #print(row)
   sqliteCur.close()
