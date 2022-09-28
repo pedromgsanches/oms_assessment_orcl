@@ -59,6 +59,7 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 - **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
 
 - [x] DONE
+- **Adicionado Fail_Msg para mensagens de falha personalizadas e embutidas na query**
 - **Tool encrypt/decrypt JSONs - secretStore.exe**
 - **Connections encrypted JSON file**
 - **Loads JSON file**
