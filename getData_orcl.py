@@ -181,7 +181,7 @@ def InitSQLite3(SQLITE):
   except Exception as e: 
     print('SQLITEerr: '+str(e))
   try:
-    sqliteCur.execute('''CREATE TABLE raw_data (timestamp, alias, org, stage, label, host, port, database, describe, additinfo, context, query_result,compare_op,query_expected,equal,failure_msg)''')
+    sqliteCur.execute('''CREATE TABLE raw_data (timestamp, alias, org, stage, label, host, port, database, describe, additinfo, context, query_result,compare_op,query_expected,equal,failure_msg,fail_msg)''')
     sqliteCon.commit()
   except Exception as e: 
     print('SQLITEerr: '+str(e))
@@ -222,8 +222,8 @@ def getOrclData(saltFile,ConnectionsFile):
           isEqual = 'NOT_OK'
         
         print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
-        sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-        (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"]))
+        sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+        (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
         sqliteCon.commit()
         #print(row)
   sqliteCur.close()
