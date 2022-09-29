@@ -78,7 +78,8 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
         "Instance":  "server.app.ROOT\\DB001", \
         "Result":  "Failed", \
         "FailureMessage":  "Expected $true, because Should notify by Agent notifications, but got $false." \
-     }, \
+        "Fail_Msg":  "Expected $true, please change to $expected." \
+}, \
 \
 - **Load Azure** -- uploadAZURE.py  
 - Melhorias **Load Azure** -- uploadAZURE.py:
