@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\pedro.sanches\Code\OMSassessmentJSON"
+VIRTUAL_ENV="C:\Users\pedro.sanches\Code\oms_assessment_orcl"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
