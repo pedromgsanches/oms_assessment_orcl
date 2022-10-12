@@ -54,6 +54,9 @@ try:
     sys.argv[1]
 except IndexError as ie:
     display_help()
+
+runGETdata=False
+
 # Evaluate given options
 for current_argument, current_value in arguments:
     if current_argument in ("-h", "--help"):
@@ -210,22 +213,26 @@ def getOrclData(saltFile,ConnectionsFile):
   #print(str(conData['Databases']))
   for db in conData['Databases']:
     print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Connecting: ['+ db["Alias"] +"] "+db["Host"]+":"+db["Port"]+"/"+db["Database"])
-    connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
-    for loadar in GetLoads(loadsFile):    
-      cursor = connection.cursor()
-      cursor.execute(loadar["Query"])
-      for LQuery in cursor:
-        if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
-#        if str(LQuery[0]) == str(loadar["ExpectedValue"]):
-          isEqual = 'OK'
-        else:
-          isEqual = 'NOT_OK'
+    try:
+      connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
+      for loadar in GetLoads(loadsFile):    
+        cursor = connection.cursor()
+        cursor.execute(loadar["Query"])
+        for LQuery in cursor:
+          if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
+#          if str(LQuery[0]) == str(loadar["ExpectedValue"]):
+            isEqual = 'OK'
+          else:
+            isEqual = 'NOT_OK'
         
-        print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
-        sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-        (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
-        sqliteCon.commit()
-        #print(row)
+          print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
+          sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+          (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
+          sqliteCon.commit()
+          #print(row)
+    except Exception as e:
+      print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+'ERR: connecting: '+str(e))
+
   sqliteCur.close()
   sqliteCon.close()
 
@@ -234,4 +241,8 @@ print("-------------------------------------------------------")
 
 if runGETdata is True:
   print(getOrclData(saltFile,ConnectionsFile))
+else:
+  display_help()
+
+
 
