@@ -5,6 +5,7 @@
 		"Context": "Get environment ORACLE_HOME",
 		"AdditInfo": "ORACLE_HOME must follow a standard for automation purposes",
 		"Query": "select SYS_CONTEXT ('USERENV','ORACLE_HOME') AS VALUE from dual",
+		"ExpectedValOperator": "equal",
 		"ExpectedValue": "/opt/oracle/product/21c/dbhome_1",
 		"FailureMessage": "ORACLE_HOME is not following OMS standards"
 	}, {
@@ -12,14 +13,24 @@
 		"AdditInfo": "DB Size: Small",
 		"Context": "oracle_database processes",
 		"Query": "select display_value from v$parameter where name='processes'",
+		"ExpectedValOperator": "greater",
 		"ExpectedValue": "500",
 		"FailureMessage": "Not compliant -- processes"
-	}, {
+	},{
+		"Describe": "DB Parameters: Sessions",
+		"AdditInfo": "DB Size: Small",
+		"Context": "oracle_database sessions",
+		"Query": "select display_value from v$parameter where name='sessions'",
+		"ExpectedValOperator": "less",
+		"ExpectedValue": "1000",
+		"FailureMessage": "Not compliant -- sessions"
+	},{
 		"Describe": "OS_VERSION",
 		"AdditInfo": "OS Version for standards",
 		"Context": "OS_Version for Database Install",
 		"Query": "SELECT dbms_utility.port_string from dual",
-		"ExpectedValue": "AIX/8.1.7",
+		"ExpectedValOperator": "or",
+		"ExpectedValue": "AIX/8.1.7|x86_64/Linux 2.4.xx",
 		"FailureMessage": "Expected OS is not compliant."
 	}
     ]
