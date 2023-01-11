@@ -16,8 +16,7 @@
 		"ExpectedValOperator": "greater",
 		"ExpectedValue": "400",
 		"FailureMessage": "Not compliant -- processes"
-	},
- {
+	}, {
 		"Describe": "TESTE QUERY PARTIDA",
 		"AdditInfo": "TESTE QUERY PARTIDA",
 		"Context": "OS_Version for Database Install",

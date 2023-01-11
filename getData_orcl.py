@@ -227,13 +227,13 @@ def getOrclData(saltFile,ConnectionsFile):
             else:
               isEqual = 'NOT_OK'
         
-            print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
+            print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'] +" - OK")
             sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
             (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
             sqliteCon.commit()
           #print(row)
         except Exception as e:
-          print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - ERR: '+ loadar['Describe'] +' - Something went wrong executing query: '+str(e))
+          print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - '+ loadar['Describe'] +' - ERR: Something went wrong executing query: '+str(e))
           cursor.execute('select 1 from dual')
 
     except Exception as e:
