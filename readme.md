@@ -55,6 +55,15 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 - [ ] IN PROGRESS:
 
 - [ ] TO DO:
+MAX
+   [ ] Log de atividade para poder tratar as falhas (getData)
+   [X] Adicionar try/catch de query falhada no getData (for loadar in GetLoads(loadsFile):       cursor = connection.cursor() )
+MED
+   [ ] Possibilidade de enviar <connections>.csv em vez de json
+
+LOW
+   [ ] Guardar connections.conn no sqlite
+
 - **Write XLSX**
 - **Enrich loads.json -- adicionar SELECT's para trazer dados. O assessment em si.**
 

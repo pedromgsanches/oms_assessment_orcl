@@ -217,7 +217,10 @@ def getOrclData(saltFile,ConnectionsFile):
       connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
       for loadar in GetLoads(loadsFile):    
         cursor = connection.cursor()
-        cursor.execute(loadar["Query"])
+        try:
+          cursor.execute(loadar["Query"])
+        except Exception as e:
+          print('ERR: Something went wrong executing query: '+str(e))
         for LQuery in cursor:
           if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
 #          if str(LQuery[0]) == str(loadar["ExpectedValue"]):

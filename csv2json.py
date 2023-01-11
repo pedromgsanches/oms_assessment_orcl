@@ -21,28 +21,44 @@ csvreader = csv.reader(file)
 header = []
 header = next(csvreader)
 header
+header_length=range(len(header))
 
 rows = {}
 all_rows = []
+
+dict_list = []
+dict_dict = {}
+
 for row in csvreader:
-    # get header length
-    # for i in header-length
+    print("----------------------------------------------------")
+    diction = {}
+    for head_idx in header_length:
+        print(header[head_idx]+": "+row[head_idx].strip().replace("\"",""))
+        diction[header[head_idx]] =  row[head_idx].strip().replace("\"","")
+    print(diction)
+    dict_list.append(diction)
+
+print(dict_list)
+
+
+#    for i in header_length:
         #head0 = row0
             #(...)
-        row_result = 
-    all_rows.append(row_result)
+#        row_result = 
+#    all_rows.append(row_result)
 
 # final_doc = {databases: [row_result]}
  
  
-         rows.append(row)
+#         rows.append(row)
+
 file.close()
 
-print(header)
+#print(header)
 
-print(rows)
+#print(rows)
 
-json.dumps()
+#json.dumps()
 
 
 # output file exists?
