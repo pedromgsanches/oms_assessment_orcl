@@ -216,23 +216,26 @@ def getOrclData(saltFile,ConnectionsFile):
     try:
       connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
       for loadar in GetLoads(loadsFile):    
-        cursor = connection.cursor()
         try:
+          cursor = connection.cursor()
           cursor.execute(loadar["Query"])
-        except Exception as e:
-          print('ERR: Something went wrong executing query: '+str(e))
-        for LQuery in cursor:
-          if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
-#          if str(LQuery[0]) == str(loadar["ExpectedValue"]):
-            isEqual = 'OK'
-          else:
-            isEqual = 'NOT_OK'
+
+          for LQuery in cursor:
+            if compareValues(str(LQuery[0]),str(loadar["ExpectedValue"]),str(loadar["ExpectedValOperator"])) is True:
+#            if str(LQuery[0]) == str(loadar["ExpectedValue"]):
+              isEqual = 'OK'
+            else:
+              isEqual = 'NOT_OK'
         
-          print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
-          sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-          (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
-          sqliteCon.commit()
+            print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+" - "+loadar['Describe'])
+            sqliteCur.execute("insert into raw_data values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+            (datetime.now(),db['Alias'], db['Org'], db['Stage'], db['Label'], db['Host'], db['Port'], db['Database'], loadar['Describe'], loadar['AdditInfo'],loadar['Context'], str(LQuery[0]),loadar["ExpectedValOperator"],loadar["ExpectedValue"],isEqual,loadar["FailureMessage"],str(LQuery[1])))
+            sqliteCon.commit()
           #print(row)
+        except Exception as e:
+          print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - ERR: '+ loadar['Describe'] +' - Something went wrong executing query: '+str(e))
+          cursor.execute('select 1 from dual')
+
     except Exception as e:
       print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+'ERR: connecting: '+str(e))
 

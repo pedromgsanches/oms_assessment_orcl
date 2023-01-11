@@ -9,13 +9,22 @@
 		"ExpectedValOperator": "equal",
 		"FailureMessage": "ORACLE_HOME is not following OMS standards"
 	}, {
-		"Describe": "DB Parameters: Processes",
+		"Describe": "DB Parameters - Processes",
 		"AdditInfo": "DB Size: Small",
 		"Context": "oracle_database processes",
 		"Query": "select display_value as VALUE,'$VALUE$ is not ExpectedValue.' as FAILMSG from v$parameter where name='processes'",
 		"ExpectedValOperator": "greater",
 		"ExpectedValue": "400",
 		"FailureMessage": "Not compliant -- processes"
+	},
+ {
+		"Describe": "TESTE QUERY PARTIDA",
+		"AdditInfo": "TESTE QUERY PARTIDA",
+		"Context": "OS_Version for Database Install",
+		"Query": "SELECT dbms_utility.port_string VALUE,'$VALUE$ is not ExpectedValue.' as FAILMSG from ",
+		"ExpectedValOperator": "or",
+		"ExpectedValue": "AIX/8.1.7|x86_64/Linux 2.4.xx",
+		"FailureMessage": "Expected OS is not compliant."
 	}, {
 		"Describe": "OS_VERSION",
 		"AdditInfo": "OS Version for standards",
