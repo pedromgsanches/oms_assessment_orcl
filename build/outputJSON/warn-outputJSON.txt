@@ -17,7 +17,7 @@ IMPORTANT: Do NOT post this list to the issue-tracker. Use it as a basis for
 missing module named _frozen_importlib_external - imported by importlib._bootstrap (delayed), importlib (optional), importlib.abc (optional)
 excluded module named _frozen_importlib - imported by importlib (optional), importlib.abc (optional)
 missing module named 'org.python' - imported by copy (optional), xml.sax (delayed, conditional)
-missing module named pyimod03_importers - imported by /home/vagrant/.local/lib/python3.6/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pkgutil.py (top-level)
+missing module named pyimod03_importers - imported by /home/vagrant/Code/oms_assessment_orcl/lib/python3.6/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pkgutil.py (top-level)
 missing module named _dummy_threading - imported by dummy_threading (optional)
 missing module named _winapi - imported by subprocess (conditional)
 missing module named msvcrt - imported by subprocess (conditional), getpass (optional)
