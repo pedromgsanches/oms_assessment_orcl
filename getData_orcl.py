@@ -149,10 +149,10 @@ def compareValues(GotValue, ExpecValue, inputOp):
       if GotValue == ExpecValue:
         outputValue = True
   if inputOp == 'greater':
-      if GotValue > ExpecValue:
+      if int(GotValue) > int(ExpecValue):
         outputValue = True
   if inputOp == 'less':
-      if GotValue < ExpecValue:
+      if int(GotValue) < int(ExpecValue):
         outputValue = True
   if inputOp == 'or':
       match = re.findall(re.escape(GotValue), ExpecValue)
