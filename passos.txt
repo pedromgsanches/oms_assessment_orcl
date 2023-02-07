@@ -1,3 +1,5 @@
+CASO WINDOWS: CORRER POWERSHELL
+
 1- secretStore.py
 	- gera salt file
 	- com base em secrets.json, gera secretsFile (Ex: secrets-coca-cola)

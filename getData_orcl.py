@@ -164,7 +164,8 @@ def compareValues(GotValue, ExpecValue, inputOp):
 def GetLoads(loadsFile):
   with open(loadsFile,'r') as LoFile:
     try:
-      LoData=json.loads(LoFile.read())
+      LoData=json.loads(LoFile.read()).encode("latin_1").decode("utf_8")
+
     except Exception as e:
       print('ERR: Validate your Queries JSON file: '+str(e))
       sys.exit()
