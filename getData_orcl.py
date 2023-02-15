@@ -149,10 +149,10 @@ def compareValues(GotValue, ExpecValue, inputOp):
       if GotValue == ExpecValue:
         outputValue = True
   if inputOp == 'greater':
-      if int(GotValue) > int(ExpecValue):
+      if float(GotValue) > float(ExpecValue):
         outputValue = True
   if inputOp == 'less':
-      if int(GotValue) < int(ExpecValue):
+      if float(GotValue) < float(ExpecValue):
         outputValue = True
   if inputOp == 'or':
       match = re.findall(re.escape(GotValue), ExpecValue)
@@ -160,11 +160,22 @@ def compareValues(GotValue, ExpecValue, inputOp):
         outputValue = True
   return(outputValue)
 
+class LazyDecoder(json.JSONDecoder):
+    def decode(self, s, **kwargs):
+        regex_replacements = [
+            (re.compile(r'([^\\])\\([^\\])'), r'\1\\\\\2'),
+            (re.compile(r',(\s*])'), r'\1'),
+        ]
+        for regex, replacement in regex_replacements:
+            s = regex.sub(replacement, s)
+        return super().decode(s, **kwargs)
+
+
 #### GET LOADS ################################
 def GetLoads(loadsFile):
   with open(loadsFile,'r') as LoFile:
     try:
-      LoData=json.loads(LoFile.read()).encode("latin_1").decode("utf_8")
+      LoData=json.loads(LoFile.read(), cls=LazyDecoder) # encode('utf-8').decode('unicode_escape')
 
     except Exception as e:
       print('ERR: Validate your Queries JSON file: '+str(e))
@@ -235,6 +246,7 @@ def getOrclData(saltFile,ConnectionsFile):
           #print(row)
         except Exception as e:
           print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - '+ loadar['Describe'] +' - ERR: Something went wrong executing query: '+str(e))
+          print("Query --> "+str(loadar["Query"]))
           cursor.execute('select 1 from dual')
 
     except Exception as e:

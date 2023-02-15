@@ -1,0 +1,268 @@
+{
+        "metaGetData": [
+                {
+                "Describe": "Info DB versions", "AdditInfo": "Info DB versions", "Context": "Database information",
+                "Query": "select count(1) val , listagg(banner,' | ') within group (order by 1) info from v$version",
+                "ExpectedValOperator": "greater", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+        {
+                "Describe": "Info DB mode", "AdditInfo": "Info DB mode", "Context": "Database information",
+                "Query": "select DBID val ,  'Database '||name||'('||dbid||') created @'||to_char(CREATED,'YYYY-MM-DD HH24:MI:SS') ||' is '|| DATABASE_ROLE ||' open in '||OPEN_MODE||' with '|| LOG_MODE ||' and protection mode to '|| PROTECTION_MODE info from v$database",
+                "ExpectedValOperator": "greater", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+                {
+                "Describe": "Info DB instances", "AdditInfo": "Info DB instances", "Context": "Database information",
+                "Query": "select count(1) val,  listagg(instance_name||'@'||host_name,', ') within group (order by inst_id) info  from gv$instance",
+                "ExpectedValOperator": "greater", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+                {
+                "Describe": "Info DB size", "AdditInfo": "Info DB size", "Context": "Database information",
+                "Query": "select datafiles+tempfiles val, 'Database has '|| to_char(datafiles+tempfiles) ||'GB: '||to_char(datafiles) ||' GB on datafiles and '||to_char(tempfiles) ||'GB on tempfiles ' info from (select round(sum(bytes)/1024/1024/1024,2) datafiles from dba_data_files) data, (select round(sum(bytes)/1024/1024/1024,2) tempfiles from dba_temp_files) temp",
+                "ExpectedValOperator": "greater", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+                {
+                "Describe": "Info Datafiles location", "AdditInfo": "Info Datafiles location", "Context": "Database information",
+                "Query": "select sum(val) val,  'Datafiles location: '||  listagg(p, ', ') within group( order by p) info from (select distinct  case when substr(name, 1,1)='+' then 0 else 1 end val, regexp_replace(name, '[\|/][^\|/]*$','') p from v$datafile) x",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+                {
+                "Describe": "Info Redologs location", "AdditInfo": "Info Datafiles location", "Context": "Database information",
+                "Query": "select sum(val) val,  'Redologs location: '||  listagg(p, ', ') within group( order by p) info from (select distinct  case when substr(member, 1,1)='+' then 0 else 1 end val, regexp_replace(member, '[\|/][^\|/]*$','') p from v$logfile) x",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Database information"
+        },
+                {
+                "Describe": "Uptime", "AdditInfo": "Database Uptime", "Context": "Operational Excellence",
+                "Query": "select round(sysdate-startup_time,2), 'Lower uptime: '||round(sysdate-startup_time)||' days' from v$instance",
+                "ExpectedValOperator": "greater", "ExpectedValue": "5",
+                "FailureMessage": "Database with lower uptime."
+        },
+				{
+                "Describe": "OS_VERSION", "AdditInfo": "OS Version for standards", "Context": "Upgrade Readiness",
+                "Query": "SELECT dbms_utility.port_string, 'Validate OS Version/Architecture' from dual",
+                "ExpectedValOperator": "or",    "ExpectedValue": "AIX/8.1.7|x86_64/Linux 2.4.xx",
+                "FailureMessage": "Expected OS is not compliant."
+        },
+				{
+                "Describe": "DB Parameters: Processes", "AdditInfo": "DB Size: Small", "Context": "oracle_database processes",
+                "Query": "select display_value val, 'Processes = '|| display_value info from v$parameter where name='processes'",
+                "ExpectedValOperator": "greater",  "ExpectedValue": "500",
+                "FailureMessage": "Not compliant -- processes"
+        },
+                {
+                "Describe": "Diskgroup Percent Space Free", "AdditInfo": "Diskgroup Percent Space Free", "Context": "ASM",
+                "Query": "select min(percent) val,  listagg(name||'-'||round(percent,0)||'%',', ') within group (order by percent) info from (select min(free_mb)*100/min(decode(total_mb,0,1,total_mb)) percent, name from v$asm_diskgroup group by name)",
+                "ExpectedValOperator": "greater", "ExpectedValue": "10",
+                "FailureMessage": "Diskgroup must have more than 10% Space Free."
+        },
+                {
+                "Describe": "Diskgroup Space Free", "AdditInfo": "Diskgroup Space Free", "Context": "ASM",
+                "Query": "select min(percent) val,  listagg(name||'-'||round(percent,0)||'GB',', ') within group (order by percent) info from (select min(free_mb)*100/1024 percent, name from v$asm_diskgroup group by name)",
+                "ExpectedValOperator": "greater",       "ExpectedValue": "10",
+                "FailureMessage": "Diskgroup must have more than 10Gb Space Free."
+        },
+                {
+                "Describe": "Invalid Objects", "AdditInfo": "Invalid Objects", "Context": "Database Design",
+                "Query": "select sum(oi) val,  listagg(owner||': '||oi,', ') within group (order by oi desc) info from (select owner, count(1) oi FROM dba_objects where status !='VALID' group by  owner order by 2 desc)",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Invalid Objects"
+        },
+                {
+                "Describe": "Constraints DISABLED", "AdditInfo": "Constraints DISABLED", "Context": "Database Design",
+                "Query": "select count(*) val, count(*)||' Constraints DISABLED' info from dba_constraints where constraint_type in ('R','P','C') and status='DISABLED'",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Constraints DISABLED"
+        },
+                {
+                "Describe": "Constraints NOT VALIDATED", "AdditInfo": "Constraints NOT VALIDATED", "Context": "Database Design",
+                "Query": "select count(*), count(*)||' Constraints NOT VALIDATED' from dba_constraints where constraint_type in ('R','P','C')  and status<>'DISABLED' and validated='NOT VALIDATED'",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Constraints NOT VALIDATED"
+        },
+				{
+                "Describe": "Constraint with no index on parent column", "AdditInfo": "Constraint with no index on parent column", "Context": "Database Design",
+                "Query": "SELECT count(1) val, 'There are '||count(1) ||' constraint with no index on parent column' info from (select c1.R_OWNER, c2.table_name  R_TABLE_NAME, a.column_name, a.position from DBA_CONSTRAINTS c1, DBA_CONSTRAINTS c2 , DBA_CONS_COLUMNS A where c1.owner not in (select username from dba_users where user_id < 53 or default_tablespace  in ('SYSAUX','SYSTEM')) and c1.constraint_type='R' and c2.owner=c1.r_owner and c2.constraint_name = c1.r_constraint_name and A.CONSTRAINT_NAME = C2.CONSTRAINT_NAME and a.table_name= c2.table_name and a.owner=c2.owner and not exists ( select 1 from dba_ind_columns i where i.index_owner=a.owner and i.table_name= a.table_name and i.column_name=a.column_name and i.column_position=a.position))",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Constraint with no index on parent column"
+        },
+				{
+                "Describe": "Constraint with no index on child column", "AdditInfo": "Constraint with no index on child column", "Context": "Database Design",
+                "Query": "select count(1) val, 'There are '||count(1) ||' constraint with no index on child column' info from  dba_cons_columns acc, dba_constraints ac where ac.CONSTRAINT_NAME = acc.CONSTRAINT_NAME and ac.CONSTRAINT_TYPE='R' AND acc.OWNER not in (select username from dba_users where user_id<53 or default_tablespace in ('SYSAUX','SYSTEM')) and not exists (select 1 from dba_ind_columns b where b.TABLE_OWNER = acc.OWNER and b.TABLE_NAME = acc.TABLE_NAME and b.COLUMN_NAME = acc.COLUMN_NAME and b.COLUMN_POSITION = acc.POSITION)",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Constraint with no index on child column"
+        },
+                {
+                "Describe": "Index Invalid", "AdditInfo": "Index Invalid", "Context": "Database Design",
+                "Query": "select indx.qtd+part.qtd+subp.qtd Total,'Index Invalid: '||indx.qtd||' Partitions Invalid: '||part.qtd||' SubPartitions: '||subp.qtd from (select count(*) qtd from dba_indexes where status='UNUSABLE') indx, (select count(*) qtd from dba_ind_partitions where status='UNUSABLE') part, (select count(*) qtd from dba_ind_subpartitions where status='UNUSABLE') subp",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Index Invalid"
+        },
+                {
+                "Describe": "Table Partitioned", "AdditInfo": "Table Partitioned", "Context": "Database Design",
+                "Query": "SELECT COUNT(*), count(*)||' Parititioned Tables' FROM DBA_TAB_PARTITIONS WHERE TABLE_OWNER NOT IN ('AUDSYS','MDSYS','SYS','SYSTEM')",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Table Partitioned"
+        },
+                {
+                "Describe": "Index Partitioned", "AdditInfo": "Index Partitioned", "Context": "Database Design",
+                "Query": "SELECT COUNT(*), count(*)||' Parititioned Indexes' FROM DBA_IND_PARTITIONS WHERE Index_OWNER NOT IN ('AUDSYS','MDSYS','SYS','SYSTEM')",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Index Partitioned"
+        },
+                {
+                "Describe": "All components in database registry are valid", "AdditInfo": "All components in database registry are valid", "Context": "Database Design",
+                "Query": "select count(1) val , 'The database components '||listagg(COMP_NAME,', ') WITHIN group( order by comp_name) ||' are invalid' info from dba_registry where status not in ('VALID','OPTION OFF')",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "All components in database registry are valid"
+        },
+                {
+                "Describe": "Redo logs are multiplexed", "AdditInfo": "Redo logs are multiplexed", "Context": "Database Design",
+                "Query": "select count(1) val, 'Redo logs should be multiplexed' info from v$log where members < 2",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Redo logs are multiplexed"
+        },
+                {
+                "Describe": "Controlfile is multiplexed", "AdditInfo": "Controlfile is multiplexed", "Context": "Database Design",
+                "Query": "select count(1) val, 'Control file should be multiplexed' info from v$controlfile",
+                "ExpectedValOperator": "greater", "ExpectedValue": "1",
+                "FailureMessage": "Controlfile is multiplexed"
+        },
+                {
+                "Describe": "AWR Space usage", "AdditInfo": "AWR Space usage", "Context": "Operational Excellence",
+                "Query": "select round(MB/decode(cbytes,0,1,cbytes)*100,0) val, 'AWR data is using '||round(MB/cbytes*100,0)||'% of tablespace SYSAUX and it represents '||round(MB/decode(mbytes,0,1,mbytes)*100,0)||' %of its MAXSIZE'  info from (select sum(bytes) as MB from dba_segments where (segment_name like 'WRH%' or segment_name like 'WRM%') and  tablespace_name = 'SYSAUX' and  owner = 'SYS') a, (select sum(maxbytes) mbytes, sum(bytes) cbytes from dba_data_files where tablespace_name='SYSAUX' )b",
+                "ExpectedValOperator": "less", "ExpectedValue": "60",
+                "FailureMessage": "AWR Space usage"
+        },
+                {
+                "Describe": "Block change Tracking", "AdditInfo": "Block change Tracking", "Context": "Operational Excellence",
+                "Query": "select status val, 'Block Cgange Tracking improves the performance of incremental backups' info from v$block_change_tracking",
+                "ExpectedValOperator": "equal", "ExpectedValue": "ENABLED",
+                "FailureMessage": "Block change Tracking"
+        },
+                {
+                "Describe": "Archivelog mode", "AdditInfo": "Archivelog mode", "Context": "Operational Excellence",
+                "Query": "select LOG_MODE val, 'NOARCHIVELOG can lead to DATA LOST' info from v$database",
+                "ExpectedValOperator": "equal", "ExpectedValue": "ARCHIVELOG",
+                "FailureMessage": "Archivelog mode"
+        },
+                {
+                "Describe": "Memory Advisors SGA", "AdditInfo": "Memory Advisors SGA", "Context": "Performance",
+                "Query": "select round(100*(a.estd_physical_read_factor-b.estd_physical_read_factor),0) val, 'Increase the DB_CACHE(SGA_TARGET) in '||(b.size_for_estimate-a.size_for_estimate)||'MB (increase of '||round(100*(b.size_factor-a.size_factor ),2)||'%) could reduce the physical reads about '||round(100*(a.estd_physical_read_factor-b.estd_physical_read_factor),2)||'% '|| 'decreasing the pct of DB time for read from '||a.estd_pct_of_db_time_for_reads||'% to '||b.estd_pct_of_db_time_for_reads||'%'  info from (select * from v$db_cache_advice where size_factor=1) a, (select * from (select * from v$db_cache_advice where size_factor>1 order by size_factor) x where rownum=1) b",
+                "ExpectedValOperator": "less", "ExpectedValue": "20",
+                "FailureMessage": "Memory Advisors SGA"
+        },
+                {
+                "Describe": "Memory Advisors PGA", "AdditInfo": "Memory Advisors PGA", "Context": "Performance",
+                "Query": "select round((b.estd_pga_cache_hit_percentage-a.estd_pga_cache_hit_percentage),0) val, 'Increase the PGA_AGGREGATE_TARGET in '||(b.pga_target_for_estimate-a.pga_target_for_estimate)||'MB (increase of '||round(100*(b.pga_target_factor-a.pga_target_factor ),2)||'%) could improve the PGA hit cache ratio in '|| round((b.estd_pga_cache_hit_percentage-a.estd_pga_cache_hit_percentage),0)||'% ' info from (select * from v$pga_target_advice where pga_target_factor=1) a, (select * from (select * from v$pga_target_advice where pga_target_factor>1 order by pga_target_factor ) x where rownum=1) b",
+                "ExpectedValOperator": "less", "ExpectedValue": "20",
+                "FailureMessage": "Memory Advisors PGA"
+        },
+                {
+                "Describe": "PGA in use", "AdditInfo": "PGA in use", "Context": "Performance",
+                "Query": "SELECT decode(pga_param,0,100,ROUND(SUM(pga_used_mem)/(pga_param)*100,0)) val, decode(pga_param,0,'MEMORY_TARGET in use','Total PGA in use is '||ROUND(SUM(pga_used_mem)/(1024*1024),0)||'MB, PGA_AGGREGATE_TARGET is '||round(pga_param/1024/1024,0)||'MB') info FROM v$process p,  (select p.value pga_param from v$parameter p where p.name='pga_aggregate_target') pga group by pga_param",
+                "ExpectedValOperator": "less", "ExpectedValue": "50",
+                "FailureMessage": "PGA in use"
+        },
+                {
+                "Describe": "Library cache hit", "AdditInfo": "Library cache hit", "Context": "Performance",
+                "Query": "select round((1-(sum(reloads)/sum(pins)))*100, 0) val, 'Library cache hit is '||round((1-(sum(reloads)/sum(pins)))*100, 1) ||'%' info  from v$librarycache",
+                "ExpectedValOperator": "greater", "ExpectedValue": "90",
+                "FailureMessage": "Library cache hit"
+        },
+                {
+                "Describe": "Buffer cache hit", "AdditInfo": "Buffer cache hit", "Context": "Performance",
+                "Query": "select round((1-(pr.value /(bg.value + cg.value)))*100,0) val, 'Buffer cache hit is '||round((1-(pr.value /(bg.value + cg.value)))*100,1)||'%' info  from v$sysstat bg, v$sysstat cg, v$sysstat pr  where bg.name = 'db block gets'  and cg.name = 'consistent gets'  and pr.name = 'physical reads'",
+                "ExpectedValOperator": "greater", "ExpectedValue": "90",
+                "FailureMessage": "Buffer cache hit"
+        },
+                {
+                "Describe": "Hard Parse", "AdditInfo": "Hard Parse", "Context": "Performance",
+                "Query": "select round((sa.value-sb.value)/(decode(sa.value, 0, 1, sa.value))*100,0) val, 'Parse to execute ratio is of '||round((sa.value-sb.value)/(decode(sa.value, 0, 1, sa.value))*100,0)||'%' info from v$sysstat sa, v$sysstat sb  where sa.name = 'execute count'  and sb.name = 'parse count (hard)'",
+                "ExpectedValOperator": "greater", "ExpectedValue": "90",
+                "FailureMessage": "Hard Parse"
+        },
+                {
+                "Describe": "Session connected", "AdditInfo": "Session connected", "Context": "Performance",
+                "Query": "select round(value/(select value from v$parameter where name='processes')*100,0) val, 'Average '||metric_name ||' on last minute: '||value ||'(This represents '||round(value/(select value from v$parameter where name='processes')*100,0)||'% of processes parameter' info from v$sysmetric where metric_id=2103",
+                "ExpectedValOperator": "less", "ExpectedValue": "50",
+                "FailureMessage": "Session connected"
+        },
+                {
+                "Describe": "Logons per second", "AdditInfo": "Logons per second", "Context": "Performance",
+                "Query": "select round(value,0) val, 'Average '||metric_name ||' on last minute: '||value info from v$sysmetric where metric_id=2018 and  group_id = 3",
+                "ExpectedValOperator": "less", "ExpectedValue": "3",
+                "FailureMessage": "Logons per second"
+        },
+                {
+                "Describe": "I/O performance", "AdditInfo": "I/O performance", "Context": "Performance",
+                "Query": "select round(value,0) val, ' '||metric_name ||' on last minute: '||value ||' '||metric_unit info from v$sysmetric where metric_id=2144",
+                "ExpectedValOperator": "less", "ExpectedValue": "5",
+                "FailureMessage": "I/O performance"
+        },
+                {
+                "Describe": "Auto jobs execution", "AdditInfo": "Auto jobs execution", "Context": "Performance",
+                "Query": "SELECT /*+ RULE */ count(1) val, 'No stats collection job completed on: '||listagg(window_name,', ') within group (order by window_name) info FROM DBA_AUTOTASK_CLIENT_HISTORY WHERE client_name='auto optimizer stats collection' AND window_start_time >= SYSDATE -7 and ( jobs_completed != jobs_created or jobs_completed != jobs_started  or jobs_completed=0)",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Auto jobs execution"
+        },
+                {
+                "Describe": "Table stats", "AdditInfo": "Table stats", "Context": "Performance",
+                "Query": "select round((sysdate - max(last_analyzed) )* 24,0) val, 'Lastest table statistics were updated '|| TO_CHAR ( max(last_analyzed), 'yyyy-mm-dd hh24:mi') val from dba_tab_statistics where owner not in (select username from dba_users where user_id < 53 or default_tablespace  in ('SYSAUX','SYSTEM'))",
+                "ExpectedValOperator": "less", "ExpectedValue": "24",
+                "FailureMessage": "Table stats"
+        },
+                {
+                "Describe": "Disk per Diskgroup", "AdditInfo": "Disk per Diskgroup", "Context": "Performance",
+                "Query": "select /*+ RULE */ sum(val) val,  listagg(msg, ', ') within group( order by msg) info from ( select name ||' used by '||info||' as '||d||' disks' msg, case when mdisk > d then 1 else 0 end val from ( select dgs.name, dbdgs.mdisk, count(1) d, case when mdisk=1 then 'redologs' else 'datafiles' end info from (select dg, max(opt) mdisk from (select distinct regexp_replace(name, '/.*$','') dg, 3 opt from v$datafile union select distinct regexp_replace(member, '/.*$','') dg , 1 opt from v$logfile) group by dg ) dbdgs, v$asm_diskgroup dgs, v$asm_disk dsk where dbdgs.dg='+'||dgs.name and dgs.group_number=dsk.group_number group by dgs.name, dbdgs.mdisk) x order by 1 ) y",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Disk per Diskgroup"
+        },
+                {
+                "Describe": "Disk size not Uniform", "AdditInfo": "Disk size not Uniform", "Context": "Performance",
+                "Query": "select /*+ RULE */ val,  decode(val,0,'Diskgroup '||name||' has all disks of same size('||avg_tot_mb||' MB)','Diskgroup'||name||' has disks with different sizes') value from ( select name, sum(val) val, count(1), avg(total_mb) avg_tot_mb from ( select dgs.name, dgs.total_mb, dgs.free_mb, dsk.os_mb, dsk_avg.avg_tot_mb, case when dsk.total_mb = dsk_avg.avg_tot_mb then 0 else 1 end val from (select distinct regexp_replace(name, '/.*$','') dg from v$datafile ) dbdgs, v$asm_diskgroup dgs, v$asm_disk dsk, (select group_number, avg(total_mb) avg_tot_mb from v$asm_disk group by group_number) dsk_avg where dbdgs.dg='+'||dgs.name and dgs.group_number=dsk.group_number and dgs.group_number=dsk_avg.group_number )x group by name )y order by 1 desc",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Disk size not Uniform"
+        },
+                {
+                "Describe": "Logswitch", "AdditInfo": "Logswitch", "Context": "Performance",
+                "Query": "select round(avg(num),0) val, 'Average Redo rotation per hour on the last 7 days was: '||round(avg(num),0)||' and the high value was: '||round(max(num),0) info from (select to_char(FIRST_TIME,'YYYY-MM-DD HH24')  dia, count(1) num from v$log_history where FIRST_TIME > trunc(sysdate -7) group by to_char(FIRST_TIME,'YYYY-MM-DD HH24') )x",
+                "ExpectedValOperator": "greater", "ExpectedValue": "10",
+                "FailureMessage": "Logswitch"
+        },
+                {
+                "Describe": "Free space in Tablespace", "AdditInfo": "Free space in Tablespace", "Context": "Performance",
+                "Query": "select count(1) val, 'Tablespaces with less then 10% of MAXSIZE free: '||listagg(tablespace_name||'('||MFree||'% free)',', ') within group (order by mfree) info from ( select df.tablespace_name , round(100 * ( (df.MaxSpace - tu.totalusedspace)/ df.MaxSpace)) MFree from (select tablespace_name, round(sum(decode(maxbytes,0,bytes, maxbytes)) / 1048576) MaxSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name ) x where mfree < 10",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Free space in Tablespace"
+        },
+                {
+                "Describe": "Partitioned Candidate", "AdditInfo": "Partitioned Candidate", "Context": "Database Design",
+                "Query": "select count(*),count(*)||' Segments with more than 500Gb, candidates to Partitioned' from dba_segments where bytes/1024/1024/1024>500",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Partitioned Candidate"
+        },
+                {
+                "Describe": "Database Backup", "AdditInfo": "Database Backup", "Context": "Operational Excellence",
+                "Query": "SELECT sysdate-max(start_time),'Last Database Backup at '||to_char(max(start_time),'YYYY-MM-DD HH24:MI:SS') FROM v$rman_backup_job_details where status='COMPLETED' and INPUT_TYPE like 'DB%'",
+                "ExpectedValOperator": "less", "ExpectedValue": "5",
+                "FailureMessage": "Without Sucessfull backup since 5 days"
+        },
+                {
+                "Describe": "Archives Backup", "AdditInfo": "Archives Backup", "Context": "Operational Excellence",
+                "Query": "SELECT sysdate-max(start_time),'Last Archive Logs Backup at '||to_char(max(start_time),'YYYY-MM-DD HH24:MI:SS') FROM v$rman_backup_job_details where status='COMPLETED' and INPUT_TYPE like 'ARC%'",
+                "ExpectedValOperator": "less", "ExpectedValue": "1",
+                "FailureMessage": "Without Sucessfull backup since 1 day"
+        },
+                {
+                "Describe": "Database Jobs", "AdditInfo": "Jobs with errors in the last 10days ", "Context": "Operational Excellence",
+                "Query": "select count(*),count(*)||' Jobs with errors in the last 10days' from DBA_SCHEDULER_Job_run_details where actual_start_date>sysdate-10 and status<>'SUCCEEDED'",
+                "ExpectedValOperator": "equal", "ExpectedValue": "0",
+                "FailureMessage": "Jobs with errors in the last 10days "
+        }
+    ]
+}
