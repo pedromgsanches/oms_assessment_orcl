@@ -225,8 +225,16 @@ def getOrclData(saltFile,ConnectionsFile):
   #print(str(conData['Databases']))
   for db in conData['Databases']:
     print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Connecting: ['+ db["Alias"] +"] "+db["Host"]+":"+db["Port"]+"/"+db["Database"])
+
+    #CXMODE=SYSDBA
+    cx_mode = cx_Oracle.DEFAULT_AUTH
+    if "Mode" in db and db["Mode"] == 'SYSDBA':
+      print(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+' - Connecting as SYSDBA')
+      cx_mode = cx_Oracle.SYSDBA
+
     try:
-      connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
+      connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"],mode=cx_mode)
+      # connection = cx_Oracle.connect(user=db["Username"], password=db["Password"],dsn=db["Host"]+":"+db["Port"]+"/"+db["Database"])
       for loadar in GetLoads(loadsFile):    
         try:
           cursor = connection.cursor()
