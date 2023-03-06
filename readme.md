@@ -53,14 +53,10 @@ pip install pyinstaller, getopt, sys, cryptography, os, json, sqlite3, datetime,
 
 ## Changes ##
 - [ ] IN PROGRESS:
-
 - [ ] TO DO:
 MAX
-   [ ] Log de atividade para poder tratar as falhas (getData)
-   [X] Adicionar try/catch de query falhada no getData (for loadar in GetLoads(loadsFile):       cursor = connection.cursor() )
 MED
    [ ] Possibilidade de enviar <connections>.csv em vez de json
-
 LOW
    [ ] Guardar connections.conn no sqlite
 
@@ -99,3 +95,9 @@ LOW
 - [x] **funçao operator + operator no json:**
       - [x] json query: compareOperator
       - [x] greater, less, equal, or
+
+   2023-06-03
+- [X] **Log de atividade para poder tratar as falhas (getData)**
+- [X] **Possibilidade de RegExp nas Queries**
+- [X] **Possibilidade de conectar AS SYSDBA com "Mode": "SYSDBA" no JSON de ligação**
+- [X] **Adicionar try/catch de query falhada no getData (for loadar in GetLoads(loadsFile):       cursor = connection.cursor() )**
