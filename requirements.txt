@@ -1,0 +1,8 @@
+ast
+cx_Oracle
+getopt
+cryptography
+re
+shutil
+azure.storage.blog
+pathlib
